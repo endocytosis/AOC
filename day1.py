@@ -5,7 +5,7 @@ with open('day1.txt', 'r') as file:
 #List comprehension creates two lists
 #One containing the first digit [char for char in line if char.isdigit()][:1] 
 #The other containing the last digit [char for char in line if char.isdigit()][-1:]
-#Lists are concatenated and joined into a string, string conveted to int 
+#Lists are concatenated and joined into a string, string converted to int 
 #Result is 1D array where each entry is the first and last digit of each line
 
 first_two_digits = [
