@@ -29,11 +29,32 @@ def process_file(content):
 
     return games_data
 
-# Reading the file and processing the content
-file_path = '/path/to/your/file.txt'  # Replace with your actual file path
+def find_feasible_games_adjusted(games_data):
+    """ Find and return the numbers of games that are feasible with the given cube limits per trial """
+    feasible_games = []
+    for game_index, game in enumerate(games_data, start=1):
+        # Check each trial in the game
+        for trial in game:
+            red, green, blue = trial
+            # If any color in a trial exceeds the limits, break and move to the next game
+            if red > 12 or green > 13 or blue > 14:
+                break
+        else:
+            # If no trial exceeded the limits, add the game as feasible
+            feasible_games.append(game_index)
 
-with open(day2test.txt, 'r') as file:
+    return feasible_games
+
+# Reading the file and processing the content
+file_path = 'day2.txt'  # The path to the uploaded file
+
+with open(file_path, 'r') as file:
     file_content = file.read()
 
-result = process_file(file_content)
-print(result)
+games_data = process_file(file_content)
+adjusted_feasible_games = find_feasible_games_adjusted(games_data)
+
+# Print out the array of feasible game numbers and the resulting sum
+print("Feasible Games:", adjusted_feasible_games)
+print("Total Number of Feasible Games:", len(adjusted_feasible_games))
+print("Sum of the Feasible Game Numbers:", sum(adjusted_feasible_games))
