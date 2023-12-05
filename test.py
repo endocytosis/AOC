@@ -18,27 +18,23 @@ def replace_words_with_numbers(s):
                 break
         else:  # This else corresponds to the for-loop
             # If no word was found, add the current character to the result 
-            # if it is an int, then move to the next character
+            # if it is an int, then move to the next characater
             if s[i].isdigit():
                 result += s[i]
             i += 1
 
     return result
 
-# Read lines from the file
-with open('day1.txt', 'r') as file:
-    lines = file.readlines()
+# Test data
+test_data = [
+    "two1nine",
+    "eightwothree",
+    "threeightone",
+    "three348two"
+]
 
-# Process each line in the file to get numbers_only array
-numbers_only = [replace_words_with_numbers(line.strip()) for line in lines]
+# Process each line in the test data
+numbers_only = [replace_words_with_numbers(line) for line in test_data]
 
-# Create a new array with only the first and last digit of each entry in numbers_only
-first_last_digits = [int(str(num)[0] + str(num)[-1]) for num in numbers_only]
-
-# Compute the sum of all ints in the new array
-total_sum = sum(first_last_digits)
-
-# Output the results
-print("Numbers Only:", numbers_only)
-print("First and Last Digits:", first_last_digits)
-print("Total Sum:", total_sum)
+# Expected output
+print(numbers_only)
