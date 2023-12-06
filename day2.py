@@ -6,7 +6,7 @@ def parse_color_data(trial):
     # Split the trial into parts and parse each part
     parts = trial.split(',')
     for part in parts:
-   w     part = part.strip()
+        part = part.strip()
         if part:
             number, color = part.split()
             colors[color] = int(number)
@@ -45,6 +45,41 @@ def find_feasible_games_adjusted(games_data):
 
     return feasible_games
 
+#Fewest cubes 
+#Loop through the array, temp variable for each color (RGB) initally set to zero, update if color at 
+#next index is greater
+#Store these values in a min_cubes array
+#Power_set function: iterate through min_cubes array, calculate product for each trial, then sum
+
+def find_fewest_cubes(games_data):
+    #Fewest cubes array
+    fewest_cubes = []
+    for game_index, game in enumerate(games_data, start=1):
+        #Increase the size of the array by 1 for each game, set intial value to zero
+        fewest_cubes.append(0)
+        temp_red = 0 
+        temp_green = 0
+        temp_blue = 0
+        max_power = 0 
+        for trial in game:
+            red, green, blue = trial
+            if red > temp_red:
+                temp_red = red
+            if green > temp_green:
+                temp_green = green
+            if blue > temp_blue:
+                temp_blue = blue
+            power = temp_blue * temp_red * temp_green
+            #If current power greater than max power, update current game index with this power
+            if power > max_power:
+                max_power = power
+                fewest_cubes[game_index - 1] = max_power
+            print("The game index is", game_index)
+            print("Max power is", max_power)
+            print("The current max red is", temp_red)
+            print("The current max green is", temp_green)
+            print("The current max blue is", temp_blue)
+    return fewest_cubes
 # Reading the file and processing the content
 file_path = 'day2.txt'  # The path to the uploaded file
 
@@ -53,8 +88,11 @@ with open(file_path, 'r') as file:
 
 games_data = process_file(file_content)
 adjusted_feasible_games = find_feasible_games_adjusted(games_data)
+fewest_cubes = find_fewest_cubes(games_data)
 
 # Print out the array of feasible game numbers and the resulting sum
 print("Feasible Games:", adjusted_feasible_games)
 print("Total Number of Feasible Games:", len(adjusted_feasible_games))
 print("Sum of the Feasible Game Numbers:", sum(adjusted_feasible_games))
+print("The fewest cubes are", fewest_cubes)
+print("The sum of the fewest cubes is", sum(fewest_cubes))
