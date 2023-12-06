@@ -6,7 +6,7 @@ def parse_color_data(trial):
     # Split the trial into parts and parse each part
     parts = trial.split(',')
     for part in parts:
-        part = part.strip()
+   w     part = part.strip()
         if part:
             number, color = part.split()
             colors[color] = int(number)
