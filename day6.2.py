@@ -16,9 +16,15 @@
 #If distance > distance in table then this is 
 #a valid way to win the race, this will go
 #into a new array, find the product of all values in this array
+
+
+
+#More elegant solution
+#Possible combinations will fail at the tail ends of speed
+#Thus, start at the beginning of speed and count until possible success
+#Start at the end of speed and count backwards until possible success
+#All remaining values are the possible combinations
 def number_of_combinations(arr):
-    valid_combinations = []
-    valid_combination = 0
     number_races = len(arr)
     for i in range(number_races):
         valid_combination = 0
@@ -27,16 +33,22 @@ def number_of_combinations(arr):
         print("The available time is: ", available_time)
         record_distance = arr[i][1]
         print("The record distance is: ", record_distance)
+        end = available_time
+        while end > 0:
+            current_speed = end
+            race_time = available_time - current_speed
+            distance = current_speed * race_time
+            if distance > record_distance:
+                start_value = current_speed
+                break
         for x in range(1, available_time - 1):
             current_speed = x
             race_time = available_time - current_speed
             distance = current_speed * race_time
             if distance > record_distance:
-                print("The current speed is: ", current_speed, ", which for a race time of", race_time, "would result in a total distance of: ", distance, "which is greater than the record distance of: ", record_distance)
-                valid_combination += 1
-                valid_combinations[i] = valid_combination
-    return valid_combinations
-
+                initial_value = current_speed
+                break
+        
 time_distance_values = [[38947970, 241154910741091]]
 winning_races = number_of_combinations(time_distance_values)
 print(winning_races)
