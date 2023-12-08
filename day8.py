@@ -3,6 +3,7 @@ import ast
 instructions_text = 'LRRRLRRLRLRRRLRLLLLRRRLRLRRLRLRLRRLRRRLRRLRRRLRLLLRRLRRLRRLRRLRRLLLLLRLRLRRRLRLLRRLRLRRRLRRLRRRLLLRRLRRLRRLRRRLRLRLRRLLRRRLRRLRRRLRRRLRRRLRLRRLRRLRRLRRRLRLRRLRRLLRRRLRRLRRLRRRLRLRLRRLLRRRLLRRLRRRLRRRLRLRRLLRRRLRLRRLLRRLRLRRRLRLRRRLRRLRRLRRLRRRLRRRLRLLRRLRRLLRRLRRRLRRLRLRLRRRLLLRRLRLRRLRRLRLRLLRLRRLRLRLRRRR'
 #Parse instructions_text as a list, instructions
 instructions = []
+test_instructions = ['R', 'L']
 for i in range(len(instructions_text)):
     instructions.append(instructions_text[i])
 
@@ -10,7 +11,7 @@ for i in range(len(instructions_text)):
 network_data = {}
 
 # Open the file and read its contents
-with open('day8test.txt', 'r') as file:
+with open('day8.txt', 'r') as file:
     for line in file:
         # Split the line into key and value parts
         key, value = line.split('=')
@@ -30,9 +31,10 @@ def steps_to_end(start_key, instructions, data):
     while current_key != 'ZZZ':
         # Determine next key based on current instruction
         next_key = data[current_key][0 if instructions[i] == 'L' else 1]
-        
+        print("The next key is", next_key)
         # Update the current key and steps
         current_key = next_key
+        print("The current key is", current_key)
         steps += 1
         print(steps)
 
@@ -45,4 +47,4 @@ start = 'AAA'
 
 print(instructions)
 print(network_data)
-print(steps_to_end(start, instructions, network_data))
+print("The total steps to end is", steps_to_end(start, instructions, network_data))
